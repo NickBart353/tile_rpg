@@ -9,8 +9,8 @@ clock = pygame.time.Clock()
 delta_time = 0
 running = True
 
-x = COLUMNS//2
-y = ROWS//2
+x = 10
+y = 10
 
 direction = ""
 movement_counter = 0
