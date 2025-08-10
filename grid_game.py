@@ -13,10 +13,12 @@ clock = pygame.time.Clock()
 delta_time = 0
 running = True
 
-x = 10
+x = 13
 y = 10
 
 positions = tile.fill_tiles()
+
+character = pygame.image.load("tiles/character.png").convert_alpha()
 
 direction = ""
 movement_counter = 0
@@ -27,28 +29,10 @@ while running:
 
     for i in range(0, COLUMNS):
         for j in range(0, ROWS):
-            match positions[j][i].name:
-                case "Blank":
-                    pygame.draw.rect(screen, (200, 200, 200), (i * SIZE, j * SIZE, SIZE, SIZE))
-                case "Tree":
-                    pygame.draw.rect(screen, (0, 100, 0), (i * SIZE, j * SIZE, SIZE, SIZE))
-                case "Grass":
-                    pygame.draw.rect(screen, (0, 200, 0), (i * SIZE, j * SIZE, SIZE, SIZE))
-                case "Rock":
-                    pygame.draw.rect(screen, (150, 150, 150), (i * SIZE, j * SIZE, SIZE, SIZE))
-                case "Water":
-                    pygame.draw.rect(screen, (30, 150, 250), (i * SIZE, j * SIZE, SIZE, SIZE))
-                case "Dirt":
-                    pygame.draw.rect(screen, (135, 92, 5), (i * SIZE, j * SIZE, SIZE, SIZE))
+            if positions[j][i].image:
+                screen.blit(positions[j][i].image, (i*SIZE, j*SIZE))
 
-
-    # for i in range(1, COLUMNS):
-    #     pygame.draw.line(screen, (245,245,245), (i*SIZE,0), (SIZE*i, ROWS*SIZE))
-    # for i in range(1, ROWS):
-    #     pygame.draw.line(screen, (245,245,245), (0,i*SIZE), (COLUMNS*SIZE, SIZE*i))
-
-    pygame.draw.rect(screen, (245,145,24), (x*SIZE,y*SIZE,SIZE,SIZE))
-
+    screen.blit(character, (x*SIZE, (y*SIZE)-(SIZE/2)))
 
     while movement_counter > 0:
         movement_counter -= 1
