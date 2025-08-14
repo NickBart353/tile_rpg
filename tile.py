@@ -3,18 +3,19 @@ import pygame
 COLUMNS, ROWS, SIZE = 30,20,30
 
 class Tile:
-    def __init__(self, name, collidable, image = None):
+    def __init__(self, name, collidable, image = None, exit_id =  None):
         self.name = name
         self.collidable = collidable
         self.image = image
+        self.exit_id = None
 
-def fill_tiles():
+class Exit_Tile(Tile):
+    def __init__(self, name, collidable, image = None, exit_id  = None):
+        Tile.__init__(self, name, collidable, image)
+        self.exit_id = exit_id
+
+def fill_world_one():
     positions = [[Tile("Blank", "False")] * COLUMNS for i in range(0,ROWS)]
-
-    grassTile = Tile("Grass", False)
-    rockTile = Tile("Rock", True)
-    dirtTile = Tile("Dirt", False)
-    waterTuke = Tile("Water", True)
 
     #Left Forest Area Trees
     for i in range(0, 15):
@@ -183,11 +184,30 @@ def fill_tiles():
         positions[10][i] = Tile("Dirt", False, pygame.image.load("tiles/dirt.png").convert())
     for i in range(22,26):
         positions[11][i] = Tile("Dirt", False, pygame.image.load("tiles/dirt.png").convert())
-    for i in range(23,30):
+    for i in range(23,29):
         positions[12][i] = Tile("Dirt", False, pygame.image.load("tiles/dirt.png").convert())
-    for i in range(24,30):
+    for i in range(24,29):
         positions[13][i] = Tile("Dirt", False, pygame.image.load("tiles/dirt.png").convert())
+
+    #Exit-Tiles
+    for j in range(12, 14):
+        positions[j][COLUMNS-1] = Exit_Tile("Exit", False, pygame.image.load("tiles/exit_right.png").convert(), 0)
+    for i in range(25, 27):
+        positions[0][i]= Exit_Tile("Exit", False, pygame.image.load("tiles/exit_up.png").convert(), 2)
+    return positions
+
+def fill_world_two():
+    positions = [[Tile("Blank", "False", pygame.image.load("tiles/grass.png"))] * COLUMNS for i in range(0,ROWS)]
+    #Exit-Tiles
+    for j in range(12, 14):
+        positions[j][0] = Exit_Tile("Exit", False, pygame.image.load("tiles/exit_left.png").convert(), 1)
 
     return positions
 
+def fill_world_three():
+    positions = [[Tile("Blank", "False", pygame.image.load("tiles/dirt.png"))] * COLUMNS for i in range(0,ROWS)]
+    #Exit-Tiles
+    for i in range(25, 27):
+        positions[ROWS-1][i] = Exit_Tile("Exit", False, pygame.image.load("tiles/exit_down.png").convert(), 3)
 
+    return positions

@@ -104,24 +104,24 @@ while running:
             for j in range(0, ROWS):
                 if positions[j][i].image:
                     screen.blit(positions[j][i].image, ((i-x)*SIZE, (j-y)*SIZE))
-                if x+13 == i and y+10 == j:
+                if x == i and y == j:
                     match positions[j][i].exit_id:
                         case 0:
-                            x = 1-13
-                            y = 13-10
                             positions = tile.fill_world_two()
+                            x = 1
+                            y = 13
                         case 1:
                             positions = tile.fill_world_one()
-                            x = COLUMNS-2-13
-                            y = 13-10
+                            x = COLUMNS-2
+                            y = 13
                         case 2:
                             positions = tile.fill_world_three()
-                            x = 25-13
-                            y=ROWS-2-10
+                            x = 25
+                            y=ROWS-2
                         case 3:
                             positions = tile.fill_world_one()
-                            x = 25-13
-                            y = 1-10
+                            x = 25
+                            y = 2
 
         screen.blit(character, (13*SIZE, (10*SIZE)-(SIZE/2)))
 
@@ -138,23 +138,22 @@ while running:
             movement_counter -= 1
             match direction:
                 case "UP":
-                    if positions[y - 1+10][x+13]:
-                        if not positions[y - 1+10][x+13].collidable:
-                            y -= 1
-                        else:
-                            bump_sound.play()
+                    if not (y-1 < 0) and not y == 0 and not (positions[y-1][x].collidable == True):
+                        y -= 1
+                    else:
+                        bump_sound.play()
                 case "DOWN":
-                    if not positions[y + 1 + 10][x + 13].collidable:
+                    if not (y+1 == ROWS) and not y == 0and not (positions[y+1][x].collidable == True):
                         y += 1
                     else:
                         bump_sound.play()
                 case "LEFT":
-                    if not positions[y + 10][x - 1 + 13].collidable:
+                    if not (x-1 < 0) and not x == 0and not (positions[y][x-1].collidable == True):
                         x -= 1
                     else:
                         bump_sound.play()
                 case "RIGHT":
-                    if not positions[y + 10][x + 1 + 13].collidable:
+                    if not (x + 1 == COLUMNS) and not x == 0 and not (positions[y][x+1].collidable == True):
                         x += 1
                     else:
                         bump_sound.play()
