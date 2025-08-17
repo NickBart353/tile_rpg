@@ -197,7 +197,7 @@ def fill_world_one():
     return positions
 
 def fill_world_two():
-    positions = [[Tile("Blank", "False", pygame.image.load("tiles/grass.png"))] * COLUMNS for i in range(0,ROWS)]
+    positions = [[Tile("Blank", False, pygame.image.load("tiles/grass.png"))] * COLUMNS for i in range(0,ROWS)]
     #Exit-Tiles
     for j in range(12, 14):
         positions[j][0] = Exit_Tile("Exit", False, pygame.image.load("tiles/exit_left.png").convert(), 1)
@@ -205,7 +205,7 @@ def fill_world_two():
     return positions
 
 def fill_world_three():
-    positions = [[Tile("Blank", "False", pygame.image.load("tiles/dirt.png"))] * COLUMNS for i in range(0,ROWS)]
+    positions = [[Tile("Dirt", False, pygame.image.load("tiles/dirt.png"))] * COLUMNS for i in range(0,ROWS)]
     #Exit-Tiles
     for i in range(25, 27):
         positions[ROWS-1][i] = Exit_Tile("Exit", False, pygame.image.load("tiles/exit_down.png").convert(), 3)

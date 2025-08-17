@@ -1,5 +1,6 @@
 import pygame
 import tile
+import random
 
 def click_button():
     m_running = False
@@ -36,6 +37,19 @@ animation_window_size = [COLUMNS*SIZE, ROWS*SIZE]
 
 button_font = pygame.font.Font(None, 45)
 title_font = pygame.font.Font(None, 60)
+
+character_animation = [pygame.image.load("character/Sprite-0001.png").convert_alpha(),
+                        pygame.image.load("character/Sprite-0002.png").convert_alpha(),
+                        pygame.image.load("character/Sprite-0003.png").convert_alpha(),
+                        pygame.image.load("character/Sprite-0004.png").convert_alpha(),
+                        pygame.image.load("character/Sprite-0005.png").convert_alpha(),
+                        pygame.image.load("character/Sprite-0006.png").convert_alpha(),
+                        pygame.image.load("character/Sprite-0007.png").convert_alpha(),
+                       pygame.image.load("character/Sprite-0008.png").convert_alpha()]
+
+animation_interval = 50
+last_update = pygame.time.get_ticks()
+animation_index = 0
 
 direction = ""
 movement_counter = 0
@@ -98,7 +112,7 @@ while running:
         if not pygame.mixer.get_busy():
             main_music.play(-1,0,2000)
 
-        screen.fill((255,255,255))
+        screen.fill((0,0,0))
 
         for i in range(0, COLUMNS):
             for j in range(0, ROWS):
@@ -123,7 +137,12 @@ while running:
                             x = 25-13
                             y = 1-10
 
-        screen.blit(character, (13*SIZE, (10*SIZE)-(SIZE/2)))
+        now = pygame.time.get_ticks()
+        if now - last_update >= animation_interval:
+            last_update = now
+            animation_index = (animation_index + 1) % len(character_animation)
+
+        screen.blit(character_animation[animation_index], (13*SIZE, (10*SIZE)-(SIZE/2)))
 
         if movement_timer+movement_speed <= pygame.time.get_ticks() and not movement_timer == 0 and just_moved == False:
             movement_counter = 1
