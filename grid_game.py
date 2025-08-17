@@ -1,6 +1,5 @@
 import pygame
-import tile
-import random
+import data.tile
 
 def click_button():
     m_running = False
@@ -10,12 +9,12 @@ def click_button():
 pygame.init()
 pygame.mixer.init()
 
-play_button_sound = pygame.mixer.Sound("sounds/Accept.wav")
-quit_button_sound = pygame.mixer.Sound("sounds/Cancel.wav")
-main_music = pygame.mixer.Sound("sounds/03 - Definitely Our Town.wav")
-bump_sound = pygame.mixer.Sound("sounds/hurt.wav")
+play_button_sound = pygame.mixer.Sound("data/sounds/Accept.wav")
+quit_button_sound = pygame.mixer.Sound("data/sounds/Cancel.wav")
+main_music = pygame.mixer.Sound("data/sounds/03 - Definitely Our Town.wav")
+bump_sound = pygame.mixer.Sound("data/sounds/hurt.wav")
 
-SIZE, COLUMNS, ROWS = tile.SIZE, tile.COLUMNS, tile.ROWS
+SIZE, COLUMNS, ROWS = data.tile.SIZE, data.tile.COLUMNS, data.tile.ROWS
 
 screen = pygame.display.set_mode((COLUMNS*SIZE, ROWS*SIZE))
 clock = pygame.time.Clock()
@@ -28,9 +27,9 @@ game_running = False
 x = 0
 y = 0
 
-positions = tile.fill_world_one()
+positions = data.tile.fill_world_one()
 
-character = pygame.image.load("tiles/character.png").convert_alpha()
+character = pygame.image.load("data/tiles/character.png").convert_alpha()
 
 animation_counter = 1
 animation_window_size = [COLUMNS*SIZE, ROWS*SIZE]
@@ -38,14 +37,14 @@ animation_window_size = [COLUMNS*SIZE, ROWS*SIZE]
 button_font = pygame.font.Font(None, 45)
 title_font = pygame.font.Font(None, 60)
 
-character_animation = [pygame.image.load("character/Sprite-0001.png").convert_alpha(),
-                        pygame.image.load("character/Sprite-0002.png").convert_alpha(),
-                        pygame.image.load("character/Sprite-0003.png").convert_alpha(),
-                        pygame.image.load("character/Sprite-0004.png").convert_alpha(),
-                        pygame.image.load("character/Sprite-0005.png").convert_alpha(),
-                        pygame.image.load("character/Sprite-0006.png").convert_alpha(),
-                        pygame.image.load("character/Sprite-0007.png").convert_alpha(),
-                       pygame.image.load("character/Sprite-0008.png").convert_alpha()]
+character_animation = [pygame.image.load("data/character/Sprite-0001.png").convert_alpha(),
+                        pygame.image.load("data/character/Sprite-0002.png").convert_alpha(),
+                        pygame.image.load("data/character/Sprite-0003.png").convert_alpha(),
+                        pygame.image.load("data/character/Sprite-0004.png").convert_alpha(),
+                        pygame.image.load("data/character/Sprite-0005.png").convert_alpha(),
+                        pygame.image.load("data/character/Sprite-0006.png").convert_alpha(),
+                        pygame.image.load("data/character/Sprite-0007.png").convert_alpha(),
+                       pygame.image.load("data/character/Sprite-0008.png").convert_alpha()]
 
 animation_interval = 50
 last_update = pygame.time.get_ticks()
@@ -123,17 +122,17 @@ while running:
                         case 0:
                             x = 1-13
                             y = 13-10
-                            positions = tile.fill_world_two()
+                            positions = data.tile.fill_world_two()
                         case 1:
-                            positions = tile.fill_world_one()
+                            positions = data.tile.fill_world_one()
                             x = COLUMNS-2-13
                             y = 13-10
                         case 2:
-                            positions = tile.fill_world_three()
+                            positions = data.tile.fill_world_three()
                             x = 25-13
                             y=ROWS-2-10
                         case 3:
-                            positions = tile.fill_world_one()
+                            positions = data.tile.fill_world_one()
                             x = 25-13
                             y = 1-10
 
